@@ -42,8 +42,14 @@ function migrateFromLegacy(): boolean {
 
 function readGeminiCreds(): any {
   try {
-    migrateFromLegacy();
+    // Always read from the Gemini CLI's actual location first
+    // This ensures we get the most up-to-date credentials
+    const legacyPath = getLegacyCredsPath();
+    if (fs.existsSync(legacyPath)) {
+      return JSON.parse(fs.readFileSync(legacyPath, 'utf8'));
+    }
     
+    // Fallback to migrated location
     const p = getCredsPath();
     if (!fs.existsSync(p)) return null;
     return JSON.parse(fs.readFileSync(p, 'utf8'));

@@ -48,7 +48,9 @@ export async function getKeychainPassword(serviceName: string, ttl: number = DEF
   const cache = loadCache();
   const cached = cache[serviceName];
   
-  if (cached && (now - cached.timestamp) < ttl) {
+  // Don't use cached null values - retry reading from keychain
+  // This ensures new credentials are picked up after login
+  if (cached && cached.value !== null && (now - cached.timestamp) < ttl) {
     return cached.value;
   }
   
