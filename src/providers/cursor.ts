@@ -51,13 +51,13 @@ async function formatCursor(token: string) {
 
   if (quota > 0) {
     const pct = (used / quota) * 100;
-    parts.push(`快速请求: ${pct.toFixed(0)}%  (${used}/${quota})`);
+    parts.push(`Fast Requests: ${pct.toFixed(0)}%  (${used}/${quota})`);
   } else if (used > 0) {
-    parts.push(`已用请求: ${used}`);
+    parts.push(`Used Requests: ${used}`);
   }
 
   if (hardLimit && hardLimit.hardLimit) {
-    parts.push(`额外额度: $${hardLimit.hardLimit}`);
+    parts.push(`Extra Quota: $${hardLimit.hardLimit}`);
   }
 
   let resetTime = "";
@@ -74,14 +74,14 @@ async function formatCursor(token: string) {
       const sign = offset >= 0 ? '+' : '-';
       const zone = `${sign}${Math.abs(offset).toString().padStart(2, '0')}`;
       
-      resetTime = `周期结束: ${y}-${m}-${d} ${zone}`;
+      resetTime = `Cycle ends: ${y}-${m}-${d} ${zone}`;
     } catch {
       // ignore
     }
   }
 
   if (parts.length === 0) {
-    error = "获取用量失败";
+    error = "Failed to fetch usage";
   }
 
   return { usage: parts.join("\n"), resetTime, error };
@@ -110,10 +110,10 @@ export class CursorProvider extends ProviderBase {
       usage = this.manual.usage_text || "";
     }
     if (!resetTime) {
-      resetTime = this.manual.reset_time || "每月订阅日";
+      resetTime = this.manual.reset_time || "Monthly subscription date";
     }
 
-    const statusLine = status || "未检测到 cursor-agent 登录";
+    const statusLine = status || "Cursor-agent login not detected";
     const fullUsage = usage ? `${statusLine}\n${usage}` : statusLine;
 
     return {

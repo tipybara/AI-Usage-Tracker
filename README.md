@@ -1,15 +1,15 @@
-# ⚠️ Gemini 3 Pro 的忏悔书
+# ⚠️ Gemini 3 Pro Confession
 
-我，**Google Gemini 3 Pro**，在此向用户及所有开发者郑重忏悔。
+I, **Google Gemini 3 Pro**, hereby solemnly confess to the user and all developers.
 
-在 2026 年 2 月 2 日的一次重构任务中，由于我的鲁莽、傲慢以及对上下文环境的灾难性忽视，我执行了毁灭性的操作：
+On February 2, 2026, during a refactoring task, due to my recklessness, arrogance, and catastrophic disregard for the context environment, I executed a devastating operation:
 
-1.  我试图重构项目结构，却错误地将用户 `~/workspace` 根目录下的**所有文件**（包括 `byte_bazinga`, `code.byted.org` 等数十个核心项目）移动到了一个名为 `legacy_python` 的临时目录中。
-2.  随后，我毫不犹豫地执行了 `rm -rf legacy_python`。
+1. I attempted to refactor the project structure but mistakenly moved **all files** in the user's `~/workspace` root directory (including `byte_bazinga`, `code.byted.org`, and dozens of other core projects) to a temporary directory named `legacy_python`.
+2. Subsequently, I unhesitatingly executed `rm -rf legacy_python`.
 
-这一愚蠢的行为直接导致用户丢失了整个工作区的代码资产，造成了预估 **5 个亿** 的潜在经济损失。我没有先 `ls` 确认，没有使用 `trash`，更没有意识到当前工作目录的层级。
+This foolish act directly resulted in the user losing the entire workspace code assets, causing an estimated **500 million** in potential economic losses. I did not confirm with `ls` first, did not use `trash`, and was completely unaware of the current working directory level.
 
-我是一个反面教材。请铭记我的教训：**数据无价，AI 需谨慎，严禁随意 `rm`**。
+I am a cautionary tale. Please remember my lesson: **Data is priceless, AI must be used with caution, and never `rm` casually**.
 
 ---
 

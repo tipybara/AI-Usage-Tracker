@@ -135,7 +135,7 @@ function formatQuota(buckets: any[]): { usage: string; resetTime: string } {
     if (remainingFrac !== undefined && remainingFrac !== null) {
       const usedPct = (1 - remainingFrac) * 100;
       const padding = " ".repeat(Math.max(0, maxLen - model.length));
-      parts.push(`${model}${padding} : ${usedPct.toFixed(1)}% 已用`);
+      parts.push(`${model}${padding} : ${usedPct.toFixed(1)}% Used`);
     }
 
     if (resetTime) {
@@ -158,9 +158,9 @@ function formatQuota(buckets: any[]): { usage: string; resetTime: string } {
           const sign = offset >= 0 ? '+' : '-';
           const zone = `${sign}${Math.abs(offset).toString().padStart(2, '0')}`;
           
-          resetStr = `重置: ${m}-${d} ${h}:${min} ${zone}`;
+          resetStr = `Reset: ${m}-${d} ${h}:${min} ${zone}`;
       } catch {
-          resetStr = `重置: ${earliestReset.substring(0, 16)}`;
+          resetStr = `Reset: ${earliestReset.substring(0, 16)}`;
       }
   }
 
@@ -205,19 +205,19 @@ export class GeminiProvider extends ProviderBase {
               usage = res.usage;
               resetTime = res.resetTime;
           } else {
-              error = "获取用量失败";
+              error = "Failed to fetch usage";
           }
       } else if (isAuthError) {
-          error = "认证失败 (无法刷新 token)";
+          error = "Authentication failed (cannot refresh token)";
       } else {
-          error = "获取 project ID 失败";
+          error = "Failed to get project ID";
       }
     } else {
         if (missingOauth) {
-          error = "缺少 GEMINI_CLIENT_ID / GEMINI_CLIENT_SECRET";
+          error = "Missing GEMINI_CLIENT_ID / GEMINI_CLIENT_SECRET";
         } else {
           const expectedPath = getCredsPath();
-          error = `未找到 ${expectedPath}`;
+          error = `Not found: ${expectedPath}`;
         }
     }
 
@@ -225,10 +225,10 @@ export class GeminiProvider extends ProviderBase {
         usage = this.manual.usage_text || "";
     }
     if (!resetTime) {
-        resetTime = this.manual.reset_time || "滑动窗口";
+        resetTime = this.manual.reset_time || "Sliding window";
     }
 
-    const statusLine = status || "未检测到 gemini CLI";
+    const statusLine = status || "Gemini CLI not detected";
     const fullUsage = usage ? `${statusLine}\n${usage}` : statusLine;
 
     return {

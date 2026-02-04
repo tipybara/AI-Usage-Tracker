@@ -56,8 +56,8 @@ async function fetchUsage(token: string): Promise<{ data: any; isAuthError: bool
 function formatUsage(data: any): string {
   const parts: string[] = [];
   const windows = [
-    { key: "five_hour", label: "5h 窗口" },
-    { key: "seven_day", label: "7d 窗口" }
+    { key: "five_hour", label: "5h Window" },
+    { key: "seven_day", label: "7d Window" }
   ];
 
   for (const w of windows) {
@@ -91,7 +91,7 @@ function formatUsage(data: any): string {
           resetStr = resets.substring(0, 16);
         }
       }
-      const suffix = resetStr ? `  重置: ${resetStr}` : "";
+      const suffix = resetStr ? `  Reset: ${resetStr}` : "";
       parts.push(`${w.label}: ${util.toFixed(0)}%${suffix}`);
     }
   }
@@ -118,19 +118,19 @@ export class AnthropicProvider extends ProviderBase {
         "team": "Claude Team"
       };
       const planName = subMap[subType] || subType;
-      statusLine = `已登录 (${planName})`;
+      statusLine = `Logged in (${planName})`;
       
       const result = await fetchUsage(creds.accessToken);
       
       if (result.data) {
         usage = formatUsage(result.data);
       } else if (result.isAuthError && creds.refreshToken) {
-        error = "token 已过期，请运行 claude CLI 重新登录";
+        error = "Token expired, please run claude CLI to re-login";
       } else {
-        error = "获取用量失败";
+        error = "Failed to fetch usage";
       }
     } else {
-      statusLine = "未检测到 claude 登录";
+      statusLine = "Claude login not detected";
     }
 
     if (!usage) {
@@ -143,7 +143,7 @@ export class AnthropicProvider extends ProviderBase {
       name: this.name,
       usage_text: fullUsage.trim() || "—",
       reset_time: "",
-      limit_note: this.manual.limit_note || "Pro: 5h/7d 滑动窗口限额",
+      limit_note: this.manual.limit_note || "Pro: 5h/7d sliding window limit",
       dashboard_url: this.dashboard_url,
       error
     };

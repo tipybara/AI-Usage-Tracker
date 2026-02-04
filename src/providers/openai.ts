@@ -110,9 +110,9 @@ function formatOpenAI(data: any): string {
       
       let resetStr = "";
       if (resetAt) {
-          resetStr = `  重置: ${formatReset(resetAt, 'hm')}`;
+          resetStr = `  Reset: ${formatReset(resetAt, 'hm')}`;
       }
-      parts.push(`${label} 限额: ${pct}%${resetStr}`);
+      parts.push(`${label} Limit: ${pct}%${resetStr}`);
   }
 
   if (secondary) {
@@ -125,9 +125,9 @@ function formatOpenAI(data: any): string {
 
       let resetStr = "";
       if (resetAt) {
-          resetStr = `  重置: ${formatReset(resetAt, 'mdhm')}`;
+          resetStr = `  Reset: ${formatReset(resetAt, 'mdhm')}`;
       }
-      parts.push(`${label} 限额: ${pct}%${resetStr}`);
+      parts.push(`${label} Limit: ${pct}%${resetStr}`);
   }
 
   return parts.join("\n");
@@ -149,7 +149,7 @@ export class OpenAIProvider extends ProviderBase {
         if (data) {
             usage = formatOpenAI(data);
         } else {
-            error = "获取用量失败";
+            error = "Failed to fetch usage";
         }
     }
 
@@ -157,7 +157,7 @@ export class OpenAIProvider extends ProviderBase {
         usage = this.manual.usage_text || "";
     }
 
-    const statusLine = status || "未检测到 codex 登录";
+    const statusLine = status || "Codex login not detected";
     const fullUsage = usage ? `${statusLine}\n${usage}` : statusLine;
 
     return {

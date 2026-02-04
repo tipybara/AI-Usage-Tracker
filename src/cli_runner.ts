@@ -23,8 +23,8 @@ export async function getCliStatus(cliName: string): Promise<string | null> {
       if (!output) return null;
       const clean = stripAnsi(output);
       const m = clean.match(/Logged in using\s+(.+)/i);
-      if (m) return `已登录 (${m[1].trim()})`;
-      if (clean.toLowerCase().includes('logged in')) return '已登录';
+      if (m) return `Logged in (${m[1].trim()})`;
+      if (clean.toLowerCase().includes('logged in')) return 'Logged in';
     } catch {
       return null;
     }
@@ -34,7 +34,7 @@ export async function getCliStatus(cliName: string): Promise<string | null> {
   if (cliName === 'gemini') {
     // Gemini CLI check
     if (await commandExists('gemini')) {
-      return '已安装（用量见控制台或 config）';
+      return 'Installed (see console or config for usage)';
     }
     return null;
   }
@@ -44,8 +44,8 @@ export async function getCliStatus(cliName: string): Promise<string | null> {
     if (!stdout) return null;
     const clean = stripAnsi(stdout);
     const m = clean.match(/Logged in as\s+(.+?)(\n|$)/i);
-    if (m) return `已登录 (${m[1].trim()})`;
-    if (clean.toLowerCase().includes('logged in')) return '已登录';
+    if (m) return `Logged in (${m[1].trim()})`;
+    if (clean.toLowerCase().includes('logged in')) return 'Logged in';
     return null;
   }
 
